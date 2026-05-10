@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astronaut Clock</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #000428, #004e92);
+    font-family: Arial, sans-serif;
+  }
+
+  .clock {
+    width: 300px;
+    height: 300px;
+    border: 8px solid white;
+    border-radius: 50%;
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 30px rgba(0,255,255,0.3);
+  }
+
+  .center {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    transform: translateX(-50%);
+    border-radius: 5px;
+  }
+
+  .hour {
+    width: 6px;
+    height: 70px;
+    background: white;
+  }
+
+  .minute {
+    width: 4px;
+    height: 100px;
+    background: cyan;
+  }
+
+  .second {
+    width: 2px;
+    height: 120px;
+    background: red;
+  }
+
+  .title {
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="clock">
+  <div class="title">🚀 Astronaut Clock</div>
+
+  <div class="hand hour" id="hour"></div>
+  <div class="hand minute" id="minute"></div>
+  <div class="hand second" id="second"></div>
+
+  <div class="center"></div>
+</div>
+
+<script>
+  const hour = document.getElementById("hour");
+  const minute = document.getElementById("minute");
+  const second = document.getElementById("second");
+
+  function updateClock() {
+    const now = new Date();
+
+    const sec = now.getSeconds();
+    const min = now.getMinutes();
+    const hr = now.getHours();
+
+    const secDeg = sec * 6;
+    const minDeg = min * 6 + sec * 0.1;
+    const hrDeg = (hr % 12) * 30 + min * 0.5;
+
+    second.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+    minute.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+    hour.style.transform = `translateX(-50%) rotate(${hrDeg}deg)`;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
+
+</body>
+</html>
